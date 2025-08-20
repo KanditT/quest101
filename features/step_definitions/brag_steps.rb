@@ -35,10 +35,10 @@ Then('I should see the 3 main goals') do
 end
 
 Then('I should see all 4 action categories') do
-  expect(page).to have_css('[data-test-id="self-actions"]', text: '📚 Self')
-  expect(page).to have_css('[data-test-id="team-actions"]', text: '👥 Team')
+  expect(page).to have_css('[data-test-id="self-actions"]', text: '📚 SELF')
+  expect(page).to have_css('[data-test-id="team-actions"]', text: '👥 TEAM')
   expect(page).to have_css('[data-test-id="odt-actions"]', text: '🏫 ODT')
-  expect(page).to have_css('[data-test-id="client-actions"]', text: '🤝 Client')
+  expect(page).to have_css('[data-test-id="client-actions"]', text: '🤝 CLIENT')
 end
 
 Then('I should see specific actions for each category') do

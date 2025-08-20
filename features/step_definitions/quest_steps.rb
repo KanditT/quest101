@@ -153,7 +153,3 @@ end
 Then('the quest form should be cleared') do
   expect(page).to have_field('quest[name]', with: '')
 end
-
-Then('I should see {string}') do |text|
-  expect(page).to have_text(text)
-end
