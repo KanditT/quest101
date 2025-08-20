@@ -14,5 +14,10 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+  resources :quests, only: %i[index create destroy] do
+    member do
+      patch :toggle_status
+    end
+  end
   root 'quests#index'
 end

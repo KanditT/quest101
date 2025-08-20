@@ -1,70 +1,71 @@
 # frozen_string_literal: true
 
 class QuestsController < ApplicationController
-  before_action :set_quest, only: %i[show edit update destroy]
+  before_action :set_quest, only: %i[show edit update destroy toggle_status]
 
-  # GET /quests or /quests.json
   def index
-    @quests = Quest.all
+    @quests = Quest.order(created_at: :desc)
+    @quest = Quest.new
   end
 
-  # GET /quests/1 or /quests/1.json
   def show; end
 
-  # GET /quests/new
   def new
     @quest = Quest.new
   end
 
-  # GET /quests/1/edit
   def edit; end
 
-  # POST /quests or /quests.json
-  def create
+  def create # rubocop:disable Metrics/MethodLength
     @quest = Quest.new(quest_params)
+    @quest.status = false
 
     respond_to do |format|
       if @quest.save
-        format.html { redirect_to @quest, notice: 'Quest was successfully created.' } # rubocop:disable Rails/I18nLocaleTexts
-        format.json { render :show, status: :created, location: @quest }
+        format.turbo_stream
+        format.html { redirect_to quests_path }
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @quest.errors, status: :unprocessable_entity }
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.replace('quest_form', partial: 'form', locals: { quest: @quest })
+        end
+        format.html { render :index }
       end
     end
   end
 
-  # PATCH/PUT /quests/1 or /quests/1.json
   def update
     respond_to do |format|
       if @quest.update(quest_params)
-        format.html { redirect_to @quest, notice: 'Quest was successfully updated.', status: :see_other } # rubocop:disable Rails/I18nLocaleTexts
-        format.json { render :show, status: :ok, location: @quest }
+        format.turbo_stream
+        format.html { redirect_to @quest }
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @quest.errors, status: :unprocessable_entity }
+        format.html { render :edit }
       end
     end
   end
 
-  # DELETE /quests/1 or /quests/1.json
   def destroy
-    @quest.destroy!
-
+    @quest&.destroy
     respond_to do |format|
-      format.html { redirect_to quests_path, notice: 'Quest was successfully destroyed.', status: :see_other } # rubocop:disable Rails/I18nLocaleTexts
-      format.json { head :no_content }
+      format.turbo_stream
+      format.html { redirect_to quests_path }
+    end
+  end
+
+  def toggle_status
+    @quest.update(status: !@quest.status)
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to quests_path }
     end
   end
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_quest
-    @quest = Quest.find(params.expect(:id))
+    @quest = Quest.find_by(id: params[:id])
   end
 
-  # Only allow a list of trusted parameters through.
   def quest_params
     params.expect(quest: %i[name status])
   end
