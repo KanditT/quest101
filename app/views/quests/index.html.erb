@@ -1,41 +1,78 @@
-<!-- app/views/quests/index.html.erb -->
-<div class="container mx-auto px-4 py-8 max-w-3xl">
-  <h1 class="text-3xl font-bold text-blue-950 mb-4 flex justify-center">My Academy Quest</h1>
-
+<div class="min-h-screen bg-white flex justify-center flex-col w-full">
   <div class="relative">
-    <div class="flex w-full h-36 gap-2 border-2 border-sky-100 rounded-lg mb-3 items-center">
-      <div class="flex flex-1 flex-row gap-3 text-blue-950">
-        <%= image_tag "myImag2.png",
-        class: "h-32 rounded-br-[100px] rounded-tr-[130px] rounded-bl-[75px] rounded-tl-lg absolute top-0 left-0 object-cover border border-sky-100 shadow-sm border-2" %>
-        <div class="flex flex-1 flex-col h-36 ml-26 justify-center"> 
-          <h1 class=" h-[70px] flex flex-1 text-xl sm:text-4xl text-center self-center align-middle items-center sm:self-start pr-4">⟡ Kandit Tanthanathewin</h1>
-          <h1 class="h-[74px] flex flex-1 text-md sm:text-2xl text-center self-center align-middle items-center sm:self-start mr-[139px] sm:ml-9">ƃuᴉɯ</h1> 
+    <div class="absolute top-1 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent"></div>
+    <div class="bg-white">
+      <div class="max-w-4xl mx-auto py-6">
+        <div class="text-center">
+          <div class="inline-flex items-center space-x-4 mb-3">
+            <div class="w-12 h-px bg-gray-300"></div>
+            <h1 class="text-2xl font-light text-gray-800 uppercase tracking-wider">My Academy Quest</h1>
+            <div class="w-12 h-px bg-gray-300"></div>
+          </div>
+          <p class="text-gray-500 font-light">Track & Achieve goals</p>
         </div>
-        <div class="absolute bottom-0 right-0 p-4 bg-white z-10 border-l-2 border-t-2 border-sky-100 rounded-tl-lg">
-          <%= link_to brag_path, 
-              class: "inline-flex h-10 items-center gap-3 border-2 border-blue-500 text-blue-500 hover:bg-blue-600 hover:text-white font-medium py-2 pl-5 pr-3.5 rounded-lg transition-all duration-200" do %>
-            Brag
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 17L17 7M17 7H7M17 7V17"/>
-            </svg>
-          <% end %>
+        <div class="mt-8 flex justify-center">
+          <div class="relative w-full max-w-2xl">
+            <div class="flex w-full h-32 sm:h-36 gap-2 border-2 border-gray-200 items-center group hover:border-gray-300 transition-colors">
+              <div class="flex flex-1 flex-row  gap-3 text-gray-800">
+                <%= image_tag "myImag2.png",
+                class: "h-24 sm:h-32 rounded-br-[80px] sm:rounded-br-[100px] rounded-tr-[100px] sm:rounded-tr-[130px] rounded-bl-[60px] sm:rounded-bl-[75px] rounded-tl-lg absolute top-0 left-0 object-cover border border-gray-200 shadow-sm border-2" %>
+                <div class="flex flex-1 flex-col h-32 sm:h-36 ml-10 sm:ml-26 justify-center px-2"> 
+                  <h1 class="h-[50px] sm:h-[70px] flex flex-1 text-lg sm:text-xl md:text-4xl text-center self-center align-middle items-center sm:self-start pr-2 sm:pr-4 font-light">⟡ Kandit Tanthanathewin</h1>
+                  <h1 class="h-[50px] sm:h-[74px] flex flex-1 text-sm sm:text-md md:text-2xl text-center self-center align-middle items-center sm:self-start mr-8 sm:mr-[139px] sm:ml-9 text-gray-600">ƃuᴉɯ</h1> 
+                </div>
+                <div class="absolute bottom-0 right-0 p-3 sm:p-4 bg-white z-10 border-l-2 border-t-2 border-gray-200 rounded-tl-lg group-hover:border-gray-300 transition-colors">
+                  <%= link_to brag_path, 
+                      class: "inline-flex h-8 sm:h-10 items-center gap-2 sm:gap-3 border-2 border-gray-700 text-gray-700 hover:bg-amber-500 hover:border-amber-500 hover:text-white font-medium py-1 sm:py-2 pl-3 sm:pl-5 pr-2 sm:pr-3.5 rounded-tl-lg transition-all duration-200 text-sm" do %>
+                    <span class="inline">Brag</span>
+                  
+                    <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 17L17 7M17 7H7M17 7V17"/>
+                    </svg>
+                  <% end %>
+                </div>
+              </div>  
+            </div>
+          </div>
         </div>
-      </div>  
+      </div>
     </div>
   </div>
-  <!-- Form to create new quest -->
-  <div class="bg-white shadow-md rounded-lg p-4 mb-4">
-    <%= turbo_frame_tag "quest_form" do %>
-      <%= render "form", quest: @quest %>
-    <% end %>
-  </div>
 
-  <!-- Quests container -->
-  <div class="space-y-4 w-full">
-    <%= turbo_frame_tag "quests" do %>
-      <div id="quests_list" class="space-y-2 sm:space-x-2 grid grid-cols-1 sm:grid-cols-2">
-        <%= render @quests %>
-      </div>
-    <% end %>
+  <div class="bg-white">
+      <div class="max-w-2xl mx-auto py-6">
+        <%= turbo_frame_tag "quest_form" do %>
+          <%= render "form", quest: @quest %>
+        <% end %>
+    </div>
   </div>
+  <div class="bg-white">
+    <div class="max-w-4xl mx-auto px-6 py-6">
+      <div class="text-center mb-12">
+        <div class="inline-flex items-center space-x-2 mb-4">
+          <div class="w-6 h-px bg-amber-400"></div>
+          <h2 class="text-sm font-medium text-gray-600 uppercase tracking-wider">Active Quests</h2>
+          <div class="w-6 h-px bg-amber-400"></div>
+        </div>
+      </div>
+      <%= turbo_frame_tag "quests" do %>
+        <div id="quests_list" class="max-w-2xl mx-auto">
+          <% if @quests.any? %>
+            <%= render @quests %>
+          <% else %>
+            <div class="text-center py-16">
+              <div class="inline-flex items-center space-x-2 mb-4">
+                <div class="w-8 h-px bg-gray-200"></div>
+                <div class="w-2 h-2 border-2 border-gray-300"></div>
+                <div class="w-8 h-px bg-gray-200"></div>
+              </div>
+              <p class="text-gray-500 font-light">No quests yet. Create your first quest above.</p>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  
+    <div class=" h-px bg-gradient-to-r from-transparent via-gray-800 to-transparent mb-6"></div>
 </div>

@@ -68,7 +68,7 @@ When('I fill in the quest form with {string}') do |quest_name|
 end
 
 When('I submit the quest form') do
-  click_button 'Create Quest'
+  click_button 'Add Quest'
 end
 
 When('I create a quest with name {string}') do |quest_name|

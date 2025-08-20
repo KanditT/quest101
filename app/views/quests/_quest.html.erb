@@ -1,38 +1,52 @@
 <%= turbo_frame_tag dom_id(quest) do %>
-  <div class="bg-white shadow-md rounded-lg p-4 border border-gray-200">
-    <div class="flex items-center justify-between">
-      <div class="flex items-center space-x-3 flex-1">
-        <%= link_to toggle_status_quest_path(quest), 
-            method: :patch,
-            data: { turbo_method: :patch , testid: "quest-check-#{quest.id}"},
-            class: "flex items-center" do %>
-            <input type="checkbox" 
-                   id="quest_<%= quest.id %>_status"
-                   name="quest[<%= quest.id %>][status]"
-                   <%= "checked" if quest.status %>
-                   disabled
-                   class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded pointer-events-none"
-                   data-testid="ascas"
-                   >
-        <% end %>
-        <span  data-testid="quest-name-<%= quest.id %> class="<%= quest.status ? 'line-through text-gray-500' : 'text-gray-900' %> font-medium ml-3  break-all">
-          <%= quest.name %>
-        </span>
-      </div>
-      <div class="flex items-center space-x-2">
-        <%= link_to quest_path(quest), 
-            method: :delete,
-            data: { 
-              confirm: 'Are you sure?',
-              turbo_method: :delete,
-              testid: "quest-delete-#{quest.id}"
-            },
-            class: "text-red-600 hover:text-red-800 transition-colors" do %>
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-          </svg>
-        <% end %>
+  <div class="group relative mb-1">
+    <div class="bg-white border-l-4 <%= quest.status ? 'border-amber-400' : 'border-gray-200' %> hover:border-gray-300 hover:bg-amber-100 transition-colors">
+      <div class="px-6 py-4">
+        <div class="flex items-start justify-between">
+          <div class="flex items-start space-x-4 flex-1 min-w-0">
+            <%= link_to toggle_status_quest_path(quest), 
+                method: :patch,
+                data: { turbo_method: :patch, testid: "quest-check-#{quest.id}" },
+                class: "flex-shrink-0 mt-1" do %>
+              <div class="relative">
+                <div class="w-5 h-5 border-2 <%= quest.status ? 'border-amber-400 bg-amber-400' : 'border-gray-300' %> hover:border-gray-400 transition-colors flex items-center justify-center">
+                  <% if quest.status %>
+                    <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                    </svg>
+                  <% end %>
+                </div>
+                <% if quest.status %>
+                  <div class="absolute -right-2 top-2 w-4 h-px bg-amber-400 opacity-30"></div>
+                <% end %>
+              </div>
+            <% end %>
+            <div class="flex-1 min-w-0">
+              <div class="<%= quest.status ? 'line-through text-gray-500' : 'text-gray-800' %> text-lg font-light leading-relaxed break-words">
+                <span data-testid="quest-name-<%= quest.id %>"><%= quest.name %></span>
+              </div>
+              <div class="mt-2 text-xs uppercase tracking-wider <%= quest.status ? 'text-amber-600' : 'text-gray-400' %> font-medium">
+                <%= quest.status ? 'Completed' : 'In Progress' %>
+              </div>
+            </div>
+          </div>
+          <div class="flex-shrink-0 ml-6">
+            <%= link_to quest_path(quest), 
+                method: :delete,
+                data: { 
+                  confirm: 'Remove this quest?',
+                  turbo_method: :delete,
+                  testid: "quest-delete-#{quest.id}"
+                },
+                class: "text-gray-300 hover:text-red-600 transition-colors group-hover:text-gray-600" do %>
+              <svg class="w-4 h-4" stroke="currentColor" viewBox="0 0 24 24" fill="none">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/>
+              </svg>
+            <% end %>
+          </div>
+        </div>
       </div>
     </div>
+    <div class="absolute bottom-0 left-6 right-6 h-px bg-gray-200"></div>
   </div>
 <% end %> 
