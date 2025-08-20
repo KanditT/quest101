@@ -10,7 +10,7 @@ Given('the database is clean') do
 end
 
 Then('I should see {string} as the main heading') do |heading|
-  expect(page).to have_css('h1', text: heading.upcase)
+  expect(page).to have_css('h1', text: heading)
 end
 
 Then('I should see the profile section with {string}') do |name|

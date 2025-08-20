@@ -9,7 +9,7 @@ Feature: My Academy Quest
     Given the database is clean
 
   Scenario: View the quest page header
-    Then I should see "MY ACADEMY QUEST" as the main heading
+    Then I should see "My Academy Quest" as the main heading
     And I should see the profile section with "Kandit Tanthanathewin"
     And I should see "ƃuᴉɯ" in the profile
     And I should see a profile image

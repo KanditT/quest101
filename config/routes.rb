@@ -21,4 +21,5 @@ Rails.application.routes.draw do
   root 'quests#index'
 
   get '/brag', to: 'brag#index', as: :brag
+  get '*path', to: redirect('/')
 end
