@@ -57,3 +57,27 @@ Scenario: Create a new quest successfully
     Then the form should update in place without page refresh
     And I should see validation errors
     And the page URL should not change
+
+  Scenario: Toggle quest status
+    When I create a quest with name "Complete Assignment"
+    Then I wait a bit
+    And the quest "Complete Assignment" should have an incomplete status
+    When I toggle the status of quest "Complete Assignment"
+    Then the quest "Complete Assignment" should have a completed status
+    When I toggle the status of quest "Complete Assignment"
+    Then the quest "Complete Assignment" should have an incomplete status
+
+  Scenario: Delete quest confirmation
+    When I create a quest with name "Test Quest for Deletion"
+    Then I wait a bit
+    And I should see "Test Quest for Deletion" in the quests list
+    When I delete the quest "Test Quest for Deletion"
+    Then I wait a bit
+    And I should not see "Test Quest for Deletion" in the quests list
+
+  Scenario: Form is cleared after successful submission
+    When I fill in the quest form with "Learn Testing"
+    And I submit the quest form
+    Then I wait a bit
+    And I should see "Learn Testing" in the quests list
+    And the quest form should be cleared
