@@ -1,10 +1,25 @@
 <div class="container mx-auto px-4 py-8 max-w-3xl">
-  <h1 class="text-3xl font-bold text-gray-900 mb-8">My Academy Quest</h1>
-   <div>
-     <%= link_to "Brag", brag_path, class: "text-blue-600" %>
-  </div>
+  <h1 class="text-3xl font-bold text-blue-950 mb-4 flex justify-center">My Academy Quest</h1>
 
-  <div class="bg-white shadow-md rounded-lg p-6 mb-8">
+  <div class="flex flex-col sm:flex-row w-full p-4 gap-2 border-2 border-sky-100 rounded-lg mb-3 items-center shadow-md">
+    <div class="flex flex-1 flex-row gap-3">
+      <%= image_tag "myImag2.png",
+      class: "h-20 w-20 rounded-full object-cover border border-gray-300 shadow-sm" %>
+      <div class="flex flex-col justify-center sm:items-end"> 
+        <h1 class="text-lg sm:text-3xl text-center">⟡ Kandit Tanthanathewin</h1>
+        <h1 class="text-sm text-center ">ƃuᴉɯ</h1> 
+      </div>
+    </div>
+    <%= link_to brag_path, 
+        class: "inline-flex h-10 items-center gap-3 border-2 border-blue-500 text-blue-500 hover:bg-blue-600 hover:text-white font-medium py-2 pl-5 pr-3.5 rounded-full transition-all duration-200" do %>
+      Brag
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 17L17 7M17 7H7M17 7V17"/>
+      </svg>
+    <% end %>
+  </div>
+  <!-- Form to create new quest -->
+  <div class="bg-white shadow-md rounded-lg p-4 mb-8">
     <%= turbo_frame_tag "quest_form" do %>
       <%= render "form", quest: @quest %>
     <% end %>
