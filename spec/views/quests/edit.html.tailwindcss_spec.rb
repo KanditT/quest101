@@ -1,25 +1,26 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "quests/edit", type: :view do
-  let(:quest) {
+RSpec.describe 'quests/edit' do
+  let(:quest) do
     Quest.create!(
-      name: "MyString",
+      name: 'MyString',
       status: false
     )
-  }
+  end
 
-  before(:each) do
+  before do
     assign(:quest, quest)
   end
 
-  it "renders the edit quest form" do
+  it 'renders the edit quest form' do
     render
 
-    assert_select "form[action=?][method=?]", quest_path(quest), "post" do
+    assert_select 'form[action=?][method=?]', quest_path(quest), 'post' do
+      assert_select 'input[name=?]', 'quest[name]'
 
-      assert_select "input[name=?]", "quest[name]"
-
-      assert_select "input[name=?]", "quest[status]"
+      assert_select 'input[name=?]', 'quest[status]'
     end
   end
 end

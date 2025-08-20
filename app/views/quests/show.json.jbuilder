@@ -1,1 +1,3 @@
-json.partial! "quests/quest", quest: @quest
+# frozen_string_literal: true
+
+json.partial! 'quests/quest', quest: @quest

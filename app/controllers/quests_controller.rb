@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class QuestsController < ApplicationController
-  before_action :set_quest, only: %i[ show edit update destroy ]
+  before_action :set_quest, only: %i[show edit update destroy]
 
   # GET /quests or /quests.json
   def index
@@ -7,8 +9,7 @@ class QuestsController < ApplicationController
   end
 
   # GET /quests/1 or /quests/1.json
-  def show
-  end
+  def show; end
 
   # GET /quests/new
   def new
@@ -16,8 +17,7 @@ class QuestsController < ApplicationController
   end
 
   # GET /quests/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /quests or /quests.json
   def create
@@ -25,7 +25,7 @@ class QuestsController < ApplicationController
 
     respond_to do |format|
       if @quest.save
-        format.html { redirect_to @quest, notice: "Quest was successfully created." }
+        format.html { redirect_to @quest, notice: 'Quest was successfully created.' } # rubocop:disable Rails/I18nLocaleTexts
         format.json { render :show, status: :created, location: @quest }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +38,7 @@ class QuestsController < ApplicationController
   def update
     respond_to do |format|
       if @quest.update(quest_params)
-        format.html { redirect_to @quest, notice: "Quest was successfully updated.", status: :see_other }
+        format.html { redirect_to @quest, notice: 'Quest was successfully updated.', status: :see_other } # rubocop:disable Rails/I18nLocaleTexts
         format.json { render :show, status: :ok, location: @quest }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,19 +52,20 @@ class QuestsController < ApplicationController
     @quest.destroy!
 
     respond_to do |format|
-      format.html { redirect_to quests_path, notice: "Quest was successfully destroyed.", status: :see_other }
+      format.html { redirect_to quests_path, notice: 'Quest was successfully destroyed.', status: :see_other } # rubocop:disable Rails/I18nLocaleTexts
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_quest
-      @quest = Quest.find(params.expect(:id))
-    end
 
-    # Only allow a list of trusted parameters through.
-    def quest_params
-      params.expect(quest: [ :name, :status ])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_quest
+    @quest = Quest.find(params.expect(:id))
+  end
+
+  # Only allow a list of trusted parameters through.
+  def quest_params
+    params.expect(quest: %i[name status])
+  end
 end
