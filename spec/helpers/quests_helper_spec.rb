@@ -2,16 +2,18 @@
 
 require 'rails_helper'
 
-# Specs in this file have access to a helper object that includes
-# the QuestsHelper. For example:
-#
-# describe QuestsHelper do
-#   describe "string concat" do
-#     it "concats two strings with spaces" do
-#       expect(helper.concat_strings("this","that")).to eq("this that")
-#     end
-#   end
-# end
-RSpec.describe QuestsHelper do
-  pending "add some examples to (or delete) #{__FILE__}"
+RSpec.describe ApplicationJob, type: :job do # rubocop:disable RSpec/MultipleDescribes
+  it 'inherits from ActiveJob::Base' do
+    expect(described_class < ActiveJob::Base).to be true
+  end
+end
+
+RSpec.describe ApplicationMailer, type: :mailer do
+  it 'inherits from ActionMailer::Base' do
+    expect(described_class < ActionMailer::Base).to be true
+  end
+
+  it 'sets a default from email' do
+    expect(described_class.default[:from]).to eq('from@example.com')
+  end
 end
