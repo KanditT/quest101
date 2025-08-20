@@ -16,4 +16,10 @@ RSpec.describe QuestsController, type: :routing do # rubocop:disable RSpecRails/
       expect(get: '/').to route_to('quests#index')
     end
   end
+
+  describe 'GET /brag' do
+    it 'routes to brag#index' do
+      expect(get: '/brag').to route_to(controller: 'brag', action: 'index')
+    end
+  end
 end

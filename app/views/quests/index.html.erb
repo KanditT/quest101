@@ -1,6 +1,9 @@
 <div class="container mx-auto px-4 py-8 max-w-3xl">
   <h1 class="text-3xl font-bold text-gray-900 mb-8">My Academy Quest</h1>
-  
+   <div>
+     <%= link_to "Brag", brag_path, class: "text-blue-600" %>
+  </div>
+
   <div class="bg-white shadow-md rounded-lg p-6 mb-8">
     <%= turbo_frame_tag "quest_form" do %>
       <%= render "form", quest: @quest %>

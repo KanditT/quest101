@@ -15,4 +15,12 @@ RSpec.describe 'Root Path', type: :request do
       expect(response.body).to include('Learn RSpec')
     end
   end
+
+  describe 'GET /brag' do
+    it 'renders the brag page successfully' do # rubocop:disable RSpec/MultipleExpectations
+      get brag_path
+      expect(response).to have_http_status(:ok)
+      expect(response.body).to include('MY BRAG PAGE')
+    end
+  end
 end
