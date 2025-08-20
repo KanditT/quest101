@@ -1,35 +1,41 @@
+<!-- app/views/quests/index.html.erb -->
 <div class="container mx-auto px-4 py-8 max-w-3xl">
   <h1 class="text-3xl font-bold text-blue-950 mb-4 flex justify-center">My Academy Quest</h1>
 
-  <div class="flex flex-col sm:flex-row w-full p-4 gap-2 border-2 border-sky-100 rounded-lg mb-3 items-center shadow-md">
-    <div class="flex flex-1 flex-row gap-3">
-      <%= image_tag "myImag2.png",
-      class: "h-20 w-20 rounded-full object-cover border border-gray-300 shadow-sm" %>
-      <div class="flex flex-col justify-center sm:items-end"> 
-        <h1 class="text-lg sm:text-3xl text-center">⟡ Kandit Tanthanathewin</h1>
-        <h1 class="text-sm text-center ">ƃuᴉɯ</h1> 
-      </div>
+  <div class="relative">
+    <div class="flex w-full h-36 gap-2 border-2 border-sky-100 rounded-lg mb-3 items-center">
+      <div class="flex flex-1 flex-row gap-3 text-blue-950">
+        <%= image_tag "myImag2.png",
+        class: "h-32 rounded-br-[100px] rounded-tr-[130px] rounded-bl-[75px] rounded-tl-lg absolute top-0 left-0 object-cover border border-sky-100 shadow-sm border-2" %>
+        <div class="flex flex-1 flex-col h-36 ml-26 justify-center"> 
+          <h1 class=" h-[70px] flex flex-1 text-xl sm:text-4xl text-center self-center align-middle items-center sm:self-start pr-4">⟡ Kandit Tanthanathewin</h1>
+          <h1 class="h-[74px] flex flex-1 text-md sm:text-2xl text-center self-center align-middle items-center sm:self-start mr-[139px] sm:ml-9">ƃuᴉɯ</h1> 
+        </div>
+        <div class="absolute bottom-0 right-0 p-4 bg-white z-10 border-l-2 border-t-2 border-sky-100 rounded-tl-lg">
+          <%= link_to brag_path, 
+              class: "inline-flex h-10 items-center gap-3 border-2 border-blue-500 text-blue-500 hover:bg-blue-600 hover:text-white font-medium py-2 pl-5 pr-3.5 rounded-lg transition-all duration-200" do %>
+            Brag
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 17L17 7M17 7H7M17 7V17"/>
+            </svg>
+          <% end %>
+        </div>
+      </div>  
     </div>
-    <%= link_to brag_path, 
-        class: "inline-flex h-10 items-center gap-3 border-2 border-blue-500 text-blue-500 hover:bg-blue-600 hover:text-white font-medium py-2 pl-5 pr-3.5 rounded-full transition-all duration-200" do %>
-      Brag
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 17L17 7M17 7H7M17 7V17"/>
-      </svg>
-    <% end %>
   </div>
   <!-- Form to create new quest -->
-  <div class="bg-white shadow-md rounded-lg p-4 mb-8">
+  <div class="bg-white shadow-md rounded-lg p-4 mb-4">
     <%= turbo_frame_tag "quest_form" do %>
       <%= render "form", quest: @quest %>
     <% end %>
   </div>
 
-  <div class="space-y-4">
+  <!-- Quests container -->
+  <div class="space-y-4 w-full">
     <%= turbo_frame_tag "quests" do %>
-      <div id="quests_list" class="space-y-4">
+      <div id="quests_list" class="space-y-2 sm:space-x-2 grid grid-cols-1 sm:grid-cols-2">
         <%= render @quests %>
       </div>
     <% end %>
   </div>
-</div>   
+</div>
