@@ -64,6 +64,7 @@ Scenario: Create a new quest successfully
     And I should see "Test Quest for Deletion" in the quests list
     When I delete the quest "Test Quest for Deletion"
     Then I wait a bit
+    Then I wait a bit
     And I should not see "Test Quest for Deletion" in the quests list
 
   Scenario: Form is cleared after successful submission
