@@ -83,3 +83,6 @@ jobs:
               run: |
                   bundle exec rspec spec/requests
                   bundle exec rspec spec/routing
+            - name: Run Cucumber e2e tests
+              run: |
+                  bundle exec cucumber
