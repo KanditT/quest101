@@ -17,14 +17,6 @@ Then('I should see a back button to quests') do
   expect(page).to have_link('Back', href: quests_path)
 end
 
-When('I click the back button') do
-  click_link 'Back'
-end
-
-Then('I should be redirected to the quests page') do
-  expect(page).to have_current_path(quests_path, ignore_query: true)
-end
-
 Then('I should see the 3 main goals') do
   expect(page).to have_css('[data-test-id="goal-item-1"]')
   expect(page).to have_css('[data-test-id="goal-item-2"]')
