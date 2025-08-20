@@ -10,9 +10,7 @@ class QuestsController < ApplicationController
 
   def show; end
 
-  def new
-    @quest = Quest.new
-  end
+  def new; end
 
   def edit; end
 

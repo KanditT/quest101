@@ -11,16 +11,74 @@ RSpec.describe 'Quests', type: :request do # rubocop:disable RSpecRails/Inferred
   end
 
   describe 'POST /quests' do
-    let(:quest_params) { { quest: { name: 'TEST!' } } }
+    let(:valid_params) { { quest: { name: 'Valid Quest Name' } } }
+    let(:invalid_params) { { quest: { name: '' } } }
 
-    it 'can create a new quest' do
-      expect { post quests_path, params: quest_params }
-        .to change(Quest, :count).by(1)
+    context 'with valid parameters' do
+      it 'can create a new quest' do
+        expect { post quests_path, params: valid_params }
+          .to change(Quest, :count).by(1)
+      end
+
+      it 'creates quest with status false' do
+        post quests_path, params: valid_params
+        expect(Quest.last.status).to be(false)
+      end
+
+      it 'creates quest with correct name' do
+        post quests_path, params: valid_params
+        expect(Quest.last.name).to eq('Valid Quest Name')
+      end
+
+      it 'redirects to quests index with HTML format' do
+        post quests_path, params: valid_params
+        expect(response).to redirect_to(quests_path)
+      end
+
+      it 'responds with 302 redirect for HTML format' do
+        post quests_path, params: valid_params
+        expect(response).to have_http_status(:found)
+      end
     end
 
-    it 'creates quest with status false' do
-      post quests_path, params: quest_params
-      expect(Quest.last.status).to be(false)
+    context 'with Turbo Stream format' do
+      let(:turbo_headers) { { 'Accept' => 'text/vnd.turbo-stream.html' } }
+
+      context 'with valid parameters' do # rubocop:disable RSpec/NestedGroups
+        it 'creates a quest successfully' do
+          expect do
+            post quests_path, params: valid_params, headers: turbo_headers
+          end.to change(Quest, :count).by(1)
+        end
+
+        it 'responds with turbo_stream content type' do
+          post quests_path, params: valid_params, headers: turbo_headers
+          expect(response.content_type).to include('text/vnd.turbo-stream.html')
+        end
+
+        it 'responds with status ok' do
+          post quests_path, params: valid_params, headers: turbo_headers
+          expect(response).to have_http_status(:ok)
+        end
+      end
+
+      context 'with invalid parameters' do # rubocop:disable RSpec/NestedGroups
+        it 'does not create a quest' do
+          expect do
+            post quests_path, params: invalid_params, headers: turbo_headers
+          end.not_to change(Quest, :count)
+        end
+
+        it 'responds with turbo_stream content type for errors' do
+          post quests_path, params: invalid_params, headers: turbo_headers
+          expect(response.content_type).to include('text/vnd.turbo-stream.html')
+        end
+
+        it 'responds with status ok for validation errors' do
+          post quests_path, params: invalid_params, headers: turbo_headers
+          expect(response).to have_http_status(:ok)
+        end
+      end
     end
   end
 
